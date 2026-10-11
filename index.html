@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#031019">
+  <meta name="description" content="Uma noite especial merece pessoas especiais. Você está convidado para os 15 anos da Giulia.">
+  <title>Giulia · 15 anos</title>
+  <link rel="stylesheet" href="style.css?v=9">
+  <script src="script.js?v=9" defer></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <div id="sparkles" aria-hidden="true"></div>
+  <section class="opening" id="opening" aria-label="Abrir convite">
+    <div class="opening-lights" id="opening-lights" aria-hidden="true"></div>
+    <p class="eyebrow">UMA NOITE PARA GUARDAR PARA SEMPRE</p>
+    <div class="envelope">
+      <div class="envelope-inside" aria-hidden="true"><img src="convite-sem-traje.png" alt=""></div>
+      <div class="envelope-wing wing-left" aria-hidden="true"><span class="foil-frame"></span><span class="corner-stars"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <div class="envelope-wing wing-right" aria-hidden="true"><span class="foil-frame"></span><span class="corner-stars"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <button class="seal" id="open-invitation" aria-label="Abrir o convite dos 15 anos da Giulia">
+        <img class="wax-seal" src="selo-prata.png" alt="" aria-hidden="true" width="1024" height="1024">
+      </button>
+    </div>
+    <h1>Você faz parte<br>dessa história.</h1>
+    <p class="opening-copy">Um convite especial está esperando por você.</p>
+    <button class="open-label" id="open-label">TOQUE PARA ABRIR <span>✧</span></button>
+  </section>
+  <main id="invitation" hidden>
+    <header class="topline"><span>GIULIA</span><span>UMA NOVA HISTÓRIA · 15 ANOS</span></header>
+    <figure class="invitation-card">
+      <img src="convite-sem-traje.png" width="1086" height="1448" alt="Convite de Giulia, 15 anos. Uma noite especial merece pessoas especiais. Venha comemorar comigo! 20 de novembro, LaBelle Maison.">
+      <button class="art-button location" data-action="location" aria-label="Ver localização"><span class="sr-only">Localização</span></button>
+      <button class="art-button rsvp" data-action="rsvp" aria-label="Confirmar presença"><span class="sr-only">Confirmar presença</span></button>
+      <div class="card-shine" aria-hidden="true"></div>
+    </figure>
+    <footer><span>Feito para uma noite inesquecível</span><span class="footer-star">✧</span><p>Prévia do convite · detalhes da festa a definir</p><button id="replay">Rever a abertura</button></footer>
+  </main>
+  <dialog id="details-dialog" aria-labelledby="dialog-title">
+    <button id="close-dialog" class="close" aria-label="Fechar">×</button>
+    <span class="dialog-star" aria-hidden="true">✧</span>
+    <h2 id="dialog-title"></h2><p id="dialog-copy"></p>
+    <button id="dialog-ok" class="dialog-ok">Combinado</button>
+  </dialog>
+</body>
+</html>
