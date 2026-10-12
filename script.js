@@ -18,6 +18,7 @@ async function openInvitation() {
   opening.classList.add('animating');
   Object.assign(envelope.style, {position:'fixed',left:`${start.left}px`,top:`${start.top}px`,width:`${start.width}px`,height:`${start.height}px`,margin:'0'});
   invitation.hidden = false;
+  startMusic();
   invitation.inert = true;
   invitation.classList.add('being-opened');
   window.scrollTo({top:0,behavior:'instant'});
@@ -46,6 +47,8 @@ async function openInvitation() {
 document.querySelector('#open-invitation').addEventListener('click',openInvitation);
 document.querySelector('#open-label').addEventListener('click',openInvitation);
 document.querySelector('#replay').addEventListener('click',()=>{
+  pauseMusic();
+  document.querySelector('#music-toggle').hidden = true;
   invitation.hidden=true; opening.hidden=false; opening.classList.remove('leaving','unfolding','animating');
   document.querySelector('.envelope').removeAttribute('style');
   window.scrollTo({top:0,behavior:'instant'});
@@ -81,3 +84,87 @@ for(let i=0;i<3;i++){
   trail.style.setProperty('--delay',`${-i*4}s`);
   openingLights.append(trail);
 }
+
+// Player oficial do YouTube: o vídeo permanece disponível abaixo do convite.
+const musicButton = document.querySelector('#music-toggle');
+const musicLabel = document.querySelector('#music-button-label');
+const musicStatus = document.querySelector('#music-status');
+let musicPlayer;
+let musicReady = false;
+let musicWanted = false;
+let musicPlaying = false;
+let musicFailed = false;
+function showMusicState(label, status) {
+  musicLabel.textContent = label;
+  musicButton.setAttribute('aria-label', label);
+  musicStatus.textContent = status;
+}
+function playMusic() {
+  if (!musicReady || musicFailed) return;
+  musicWanted = true;
+  musicPlayer.playVideo();
+}
+function startMusic() {
+  musicButton.hidden = false;
+  musicWanted = true;
+  if (musicFailed) return;
+  if (musicReady) playMusic();
+  else showMusicState('Carregando música', 'Preparando a trilha da noite…');
+}
+function pauseMusic() {
+  musicWanted = false;
+  if (musicReady) musicPlayer.pauseVideo();
+}
+musicButton.addEventListener('click', () => {
+  if (musicFailed) {
+    window.open('https://www.youtube.com/watch?v=88wi--Lls84', '_blank', 'noopener,noreferrer');
+  } else if (musicPlaying || musicWanted) {
+    pauseMusic();
+    showMusicState('Tocar música', 'Música pausada.');
+  } else {
+    musicWanted = true;
+    playMusic();
+  }
+});
+window.onYouTubeIframeAPIReady = () => {
+  musicPlayer = new YT.Player('youtube-player', {
+    width: '356', height: '200', videoId: '88wi--Lls84',
+    host: 'https://www.youtube-nocookie.com',
+    playerVars: {
+      playsinline: 1, controls: 1, loop: 1, playlist: '88wi--Lls84',
+      ...(location.protocol.startsWith('http') ? {origin: location.origin} : {})
+    },
+    events: {
+      onReady: event => {
+        musicReady = true;
+        event.target.setVolume(35);
+        if (musicWanted) playMusic();
+        else showMusicState('Tocar música', 'A música começa ao abrir o convite.');
+      },
+      onStateChange: event => {
+        musicPlaying = event.data === YT.PlayerState.PLAYING;
+        if (musicPlaying) showMusicState('Pausar música', 'Tocando: Disney Full Intro Instrumental');
+        else if (event.data === YT.PlayerState.PAUSED) {
+          musicWanted = false;
+          showMusicState('Tocar música', 'Música pausada.');
+        }
+      },
+      onAutoplayBlocked: () => {
+        musicWanted = false;
+        showMusicState('Tocar música', 'Toque em “Tocar música” ou no vídeo para ouvir.');
+      },
+      onError: () => {
+        musicFailed = true;
+        musicWanted = false;
+        showMusicState('Ouvir no YouTube', 'A música não pôde ser reproduzida aqui. Você pode ouvir pelo link do YouTube.');
+      }
+    }
+  });
+};
+const youtubeScript = document.createElement('script');
+youtubeScript.src = 'https://www.youtube.com/iframe_api';
+youtubeScript.onerror = () => {
+  musicFailed = true;
+  showMusicState('Ouvir no YouTube', 'Não foi possível carregar a música. Abra o link do YouTube para ouvir.');
+};
+document.head.append(youtubeScript);

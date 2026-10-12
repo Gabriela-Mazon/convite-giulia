@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#031019">
   <meta name="description" content="Uma noite especial merece pessoas especiais. Você está convidado para os 15 anos da Giulia.">
   <title>Giulia · 15 anos</title>
-  <link rel="stylesheet" href="style.css?v=9">
-  <script src="script.js?v=9" defer></script>
+  <link rel="stylesheet" href="style.css?v=10">
+  <script src="script.js?v=10" defer></script>
 </head>
 <body>
   <div class="ambient" aria-hidden="true"></div>
@@ -36,7 +36,15 @@
       <div class="card-shine" aria-hidden="true"></div>
     </figure>
     <footer><span>Feito para uma noite inesquecível</span><span class="footer-star">✧</span><p>Prévia do convite · detalhes da festa a definir</p><button id="replay">Rever a abertura</button></footer>
+    <section class="music-section" aria-labelledby="music-heading">
+      <p class="music-eyebrow">A TRILHA DA NOSSA NOITE</p>
+      <h2 id="music-heading">Um toque de magia</h2>
+      <p id="music-status" role="status">Preparando a música…</p>
+      <div class="music-player"><div id="youtube-player"></div></div>
+      <a href="https://www.youtube.com/watch?v=88wi--Lls84" target="_blank" rel="noopener noreferrer">Ouvir no YouTube ↗</a>
+    </section>
   </main>
+  <button class="music-toggle" id="music-toggle" type="button" hidden aria-label="Tocar música"><span aria-hidden="true">♫</span><span id="music-button-label">Tocar música</span></button>
   <dialog id="details-dialog" aria-labelledby="dialog-title">
     <button id="close-dialog" class="close" aria-label="Fechar">×</button>
     <span class="dialog-star" aria-hidden="true">✧</span>

@@ -106,3 +106,12 @@
 .seal:hover{box-shadow:none;filter:drop-shadow(0 8px 12px #0009) brightness(1.08)}
 .seal:focus-visible{outline:2px solid #d9eef0;outline-offset:4px}
 @media(max-width:540px){.seal{width:99px;height:99px;padding:0}}
+.music-section{text-align:center;margin:36px auto 45px;padding:28px 12px 0;border-top:1px solid #b8d9e522;max-width:440px}
+.music-eyebrow{font:9px Arial,sans-serif;letter-spacing:3px;color:#98b3c0}
+.music-section h2{font-size:27px;font-weight:400;margin:15px 0}
+#music-status{font:12px/1.6 Arial,sans-serif;color:#aec1cc;min-height:38px}
+.music-player{width:100%;max-width:356px;min-height:200px;margin:16px auto;border:1px solid #bfd6df33;border-radius:8px;overflow:hidden;background:#07131d}
+.music-player iframe{display:block;width:100%;height:200px;border:0}
+.music-section a{display:inline-block;font:11px Arial,sans-serif;color:#b9d6df;margin-top:12px;text-underline-offset:4px}
+.music-toggle{position:fixed;right:18px;bottom:18px;z-index:20;display:flex;align-items:center;gap:10px;padding:12px 17px;background:#081c2af2;border:1px solid #bdd9e566;border-radius:30px;color:#e6eff1;box-shadow:0 5px 20px #0005;backdrop-filter:blur(12px);font:11px Arial,sans-serif}
+.music-toggle>span:first-child{font-size:19px;color:#a7ecf0}
