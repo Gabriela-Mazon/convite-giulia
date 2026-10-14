@@ -66,7 +66,7 @@ document.querySelectorAll('[data-action]').forEach(button=>button.addEventListen
   const url = location ? CONFIG.locationUrl : CONFIG.rsvpUrl;
   if(url){window.open(url,'_blank','noopener,noreferrer');return;}
   document.querySelector('#dialog-title').textContent=location?'O encontro tem lugar':'Sua presença é especial';
-  document.querySelector('#dialog-copy').textContent=location?'A festa será na LaBelle Maison. O endereço completo e o horário serão adicionados assim que estiverem definidos.':'O canal de confirmação será adicionado em breve. Esta é uma prévia do convite.';
+  document.querySelector('#dialog-copy').textContent=location?'A festa será na LaBelle Maison, em 20 de novembro, às 21:00. O endereço completo será adicionado assim que estiver definido.':'O canal de confirmação será adicionado em breve. Esta é uma prévia do convite.';
   dialog.showModal();
 }));
 document.querySelector('#close-dialog').addEventListener('click',()=>dialog.close());
