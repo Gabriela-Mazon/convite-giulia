@@ -134,7 +134,10 @@ function pauseMusic() {
 }
 musicButton.addEventListener('click', () => {
   if (musicFailed) {
-    window.open('https://www.youtube.com/watch?v=88wi--Lls84', '_blank', 'noopener,noreferrer');
+    const target = location.protocol === 'file:'
+      ? 'https://gabriela-mazon.github.io/convite-giulia/'
+      : 'https://www.youtube.com/watch?v=88wi--Lls84';
+    window.open(target, '_blank', 'noopener,noreferrer');
   } else if (musicPlaying || musicWanted) {
     pauseMusic();
     showMusicState('Tocar música', 'Música pausada.');
@@ -174,10 +177,15 @@ window.onYouTubeIframeAPIReady = () => {
         showMusicState('Tocar música', 'Toque em “Tocar música” ou no vídeo para ouvir.');
         finishMusicStart();
       },
-      onError: () => {
+      onError: event => {
         musicFailed = true;
         musicWanted = false;
-        showMusicState('Ouvir no YouTube', 'A música não pôde ser reproduzida aqui. Você pode ouvir pelo link do YouTube.');
+        if (location.protocol === 'file:') {
+          showMusicState('Abrir convite online', 'Para ouvir a música, abra o convite pelo endereço publicado ou por um servidor local.');
+        } else {
+          showMusicState('Ouvir no YouTube', `A música não pôde ser reproduzida aqui (erro ${event.data}). Você pode ouvir pelo link do YouTube.`);
+        }
+        musicButton.title = musicStatus.textContent;
         finishMusicStart();
       }
     }
