@@ -34,15 +34,15 @@ async function openInvitation() {
     await envelope.animate([
       {left:`${start.left}px`,top:`${start.top}px`,width:`${start.width}px`,height:`${start.height}px`},
       {left:`${destination.left}px`,top:`${destination.top}px`,width:`${destination.width}px`,height:`${destination.height}px`}
-    ],{duration:850,easing:'cubic-bezier(.22,.68,.25,1)',fill:'forwards'}).finished;
+    ],{duration:1100,easing:'cubic-bezier(.22,.68,.25,1)',fill:'forwards'}).finished;
   }
   Object.assign(envelope.style,{left:`${destination.left}px`,top:`${destination.top}px`,width:`${destination.width}px`,height:`${destination.height}px`});
   envelope.getAnimations().forEach(animation=>animation.cancel());
   opening.classList.add('unfolding');
   if (!reducedMotion) {
     // Aguarda as duas abas abrirem antes de remover a camada de abertura.
-    await new Promise(resolve=>setTimeout(resolve,1850));
-    await opening.animate([{opacity:1},{opacity:0}],{duration:450,fill:'forwards'}).finished;
+    await new Promise(resolve=>setTimeout(resolve,2550));
+    await opening.animate([{opacity:1},{opacity:0}],{duration:650,fill:'forwards'}).finished;
   }
   opening.hidden = true;
   opening.getAnimations().forEach(animation=>animation.cancel());
