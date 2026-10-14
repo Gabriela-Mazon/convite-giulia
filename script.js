@@ -40,8 +40,8 @@ async function openInvitation() {
   envelope.getAnimations().forEach(animation=>animation.cancel());
   opening.classList.add('unfolding');
   if (!reducedMotion) {
-    // Aguarda as duas abas abrirem antes de remover a camada de abertura.
-    await new Promise(resolve=>setTimeout(resolve,4400));
+    // As abas chegam a 180 graus e ficam abertas por um instante antes de sumir.
+    await new Promise(resolve=>setTimeout(resolve,4800));
     await opening.animate([{opacity:1},{opacity:0}],{duration:1000,fill:'forwards'}).finished;
   }
   opening.hidden = true;
