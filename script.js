@@ -1,6 +1,6 @@
 // Preencha estes links quando os detalhes da festa estiverem definidos.
 const CONFIG = {
-  locationUrl: '', // Link completo do Google Maps para o local correto.
+  locationUrl: 'https://maps.app.goo.gl/Kx4zQCqEYLbQSMhm8',
   rsvpUrl: '' // Exemplo: https://wa.me/5511999999999?text=Quero%20confirmar%20minha%20presenca
 };
 const opening = document.querySelector('#opening');
