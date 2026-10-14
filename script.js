@@ -10,6 +10,14 @@ let openingInProgress = false;
 async function openInvitation() {
   if (openingInProgress) return;
   openingInProgress = true;
+  // Solicita a reprodução no próprio clique e sincroniza a abertura com o áudio.
+  startMusic();
+  if (!musicPlaying && !musicFailed) {
+    await new Promise(resolve => {
+      musicStartResolve = resolve;
+      musicStartTimer = setTimeout(finishMusicStart, 4000);
+    });
+  }
   // A abertura solicitada pelo visitante sempre tem uma transição visível.
   // A preferência de movimento reduzido continua valendo para brilhos decorativos.
   const reducedMotion = false;
@@ -18,7 +26,6 @@ async function openInvitation() {
   opening.classList.add('animating');
   Object.assign(envelope.style, {position:'fixed',left:`${start.left}px`,top:`${start.top}px`,width:`${start.width}px`,height:`${start.height}px`,margin:'0'});
   invitation.hidden = false;
-  startMusic();
   invitation.inert = true;
   invitation.classList.add('being-opened');
   window.scrollTo({top:0,behavior:'instant'});
@@ -85,7 +92,7 @@ for(let i=0;i<3;i++){
   openingLights.append(trail);
 }
 
-// Player oficial do YouTube: o vídeo permanece disponível abaixo do convite.
+// Player preparado fora do main para carregar enquanto o envelope está fechado.
 const musicButton = document.querySelector('#music-toggle');
 const musicLabel = document.querySelector('#music-button-label');
 const musicStatus = document.querySelector('#music-status');
@@ -94,6 +101,16 @@ let musicReady = false;
 let musicWanted = false;
 let musicPlaying = false;
 let musicFailed = false;
+let musicStartResolve;
+let musicStartTimer;
+function finishMusicStart() {
+  clearTimeout(musicStartTimer);
+  if (musicStartResolve) {
+    const resolve = musicStartResolve;
+    musicStartResolve = undefined;
+    resolve();
+  }
+}
 function showMusicState(label, status) {
   musicLabel.textContent = label;
   musicButton.setAttribute('aria-label', label);
@@ -143,7 +160,10 @@ window.onYouTubeIframeAPIReady = () => {
       },
       onStateChange: event => {
         musicPlaying = event.data === YT.PlayerState.PLAYING;
-        if (musicPlaying) showMusicState('Pausar música', 'Tocando: Disney Full Intro Instrumental');
+        if (musicPlaying) {
+          showMusicState('Pausar música', 'Tocando: Disney Full Intro Instrumental');
+          finishMusicStart();
+        }
         else if (event.data === YT.PlayerState.PAUSED) {
           musicWanted = false;
           showMusicState('Tocar música', 'Música pausada.');
@@ -152,11 +172,13 @@ window.onYouTubeIframeAPIReady = () => {
       onAutoplayBlocked: () => {
         musicWanted = false;
         showMusicState('Tocar música', 'Toque em “Tocar música” ou no vídeo para ouvir.');
+        finishMusicStart();
       },
       onError: () => {
         musicFailed = true;
         musicWanted = false;
         showMusicState('Ouvir no YouTube', 'A música não pôde ser reproduzida aqui. Você pode ouvir pelo link do YouTube.');
+        finishMusicStart();
       }
     }
   });
@@ -166,5 +188,6 @@ youtubeScript.src = 'https://www.youtube.com/iframe_api';
 youtubeScript.onerror = () => {
   musicFailed = true;
   showMusicState('Ouvir no YouTube', 'Não foi possível carregar a música. Abra o link do YouTube para ouvir.');
+  finishMusicStart();
 };
 document.head.append(youtubeScript);

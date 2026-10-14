@@ -115,3 +115,6 @@
 .music-section a{display:inline-block;font:11px Arial,sans-serif;color:#b9d6df;margin-top:12px;text-underline-offset:4px}
 .music-toggle{position:fixed;right:18px;bottom:18px;z-index:20;display:flex;align-items:center;gap:10px;padding:12px 17px;background:#081c2af2;border:1px solid #bdd9e566;border-radius:30px;color:#e6eff1;box-shadow:0 5px 20px #0005;backdrop-filter:blur(12px);font:11px Arial,sans-serif}
 .music-toggle>span:first-child{font-size:19px;color:#a7ecf0}
+/* A arte já foi revelada pelas abas: não repetir a animação de entrada. */
+#invitation{animation:none!important}
+.background-player{position:fixed;left:-10000px;top:0;width:356px;height:200px;margin:0;pointer-events:none}
