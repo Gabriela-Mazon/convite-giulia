@@ -123,3 +123,6 @@
 .location{left:31%}
 .rsvp{left:52%}
 .art-button,.art-button:hover,.art-button:active{background:transparent;border-color:transparent;box-shadow:none;-webkit-tap-highlight-color:transparent}
+footer{font-size:14px}
+.footer-star{font-size:25px;margin:10px 0 4px}
+#replay{font-size:13px;margin-top:0;padding:5px 0}
