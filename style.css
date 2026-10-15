@@ -122,3 +122,4 @@
 .art-button{top:83%;height:10%}
 .location{left:31%}
 .rsvp{left:52%}
+.art-button,.art-button:hover,.art-button:active{background:transparent;border-color:transparent;box-shadow:none;-webkit-tap-highlight-color:transparent}
