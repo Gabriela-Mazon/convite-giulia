@@ -1,7 +1,6 @@
-// Preencha estes links quando os detalhes da festa estiverem definidos.
+// Destino do botão de localização do salão.
 const CONFIG = {
-  locationUrl: 'https://maps.app.goo.gl/Kx4zQCqEYLbQSMhm8',
-  rsvpUrl: '' // Exemplo: https://wa.me/5511999999999?text=Quero%20confirmar%20minha%20presenca
+  locationUrl: 'https://maps.app.goo.gl/Kx4zQCqEYLbQSMhm8'
 };
 const opening = document.querySelector('#opening');
 const invitation = document.querySelector('#invitation');
@@ -61,14 +60,13 @@ document.querySelector('#replay').addEventListener('click',()=>{
   window.scrollTo({top:0,behavior:'instant'});
   document.querySelector('#open-invitation').focus({preventScroll:true});
 });
-document.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',()=>{
-  const location = button.dataset.action === 'location';
-  const url = location ? CONFIG.locationUrl : CONFIG.rsvpUrl;
-  if(url){window.open(url,'_blank','noopener,noreferrer');return;}
-  document.querySelector('#dialog-title').textContent=location?'O encontro tem lugar':'Sua presença é especial';
-  document.querySelector('#dialog-copy').textContent=location?'A festa será na LaBelle Maison, em 20 de novembro, às 21:00. O endereço completo será adicionado assim que estiver definido.':'O canal de confirmação será adicionado em breve. Esta é uma prévia do convite.';
+document.querySelector('[data-action="location"]').addEventListener('click',()=>{
+  if(CONFIG.locationUrl){window.open(CONFIG.locationUrl,'_blank','noopener,noreferrer');return;}
+  document.querySelector('#dialog-title').textContent='Local da festa';
+  document.querySelector('#dialog-copy').textContent='A festa será no Salão de festas LaBelle Maison, em 20 de novembro de 2026, às 21h.';
   dialog.showModal();
-}));
+});
+
 document.querySelector('#close-dialog').addEventListener('click',()=>dialog.close());
 document.querySelector('#dialog-ok').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close();}});
